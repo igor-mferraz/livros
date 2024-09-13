@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { Outlet } from "react-router-dom"
+import { Header } from "./components/header"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>teste</>
+    <main className='dark dark:bg-background dark:text-white bg-background min-h-screen flex flex-col justify-start items-center p-2'>
+        <Header/>
+        <Outlet/>
+    </main>
   )
 }
 
