@@ -5,7 +5,6 @@ import {
   RouterProvider
 } from "react-router-dom";
 import './index.css'
-import Cadastro from './pages/Cadastro.tsx';
 import Home from './pages/Home.tsx';
 import App from './App.tsx';
 
@@ -20,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'cadastro',
-        element: <Cadastro />,
+        element: <></>,
       },
     ],
   },
