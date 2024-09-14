@@ -17,7 +17,7 @@ function Home() {
   const [data, setData] = useState<Livro[]>([])
 
   const [page,setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, ] = useState(10);
   const [totalLivros, setTotalLivros] = useState(0)
 
 
