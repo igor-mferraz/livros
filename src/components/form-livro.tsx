@@ -20,7 +20,7 @@ type props = {
 
 export const FormLivro = ({ id, onClose, actionType, refresh, toast}: props) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, ] = useState(false);
 
     const {
         register,
