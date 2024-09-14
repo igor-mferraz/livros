@@ -6,8 +6,7 @@ export const Header = () => {
         <header className="flex border-b w-full justify-between p-2">
             <img className='w-8' src={logo}/>
             <div className="flex gap-4">
-                <Link to='/'>Livros</Link>
-                <Link to='/cadastro'>Cadastro</Link>
+                <Link to='/'>Home</Link>
             </div>
         </header>
     )

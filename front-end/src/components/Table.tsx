@@ -1,64 +1,64 @@
-import { useState } from 'react'
+import { Livro } from '../types/livro';
 
 
 type props = {
   setModalIsOpen: (isOpen: boolean)=>void;
+  setIdLivro: (id: number)=>void;
+  data: Livro[]
 }
 
 
-function Table({setModalIsOpen}:props) {
+function Table({setModalIsOpen,setIdLivro, data}:props) {
 
-  const [count, setCount] = useState(0)
 
   return (
-    <div className='flex justify-center items-center w-full'>
+    <div className='flex justify-center items-center w-full p-4 mobile:p-1'>
 
-      <div className='flex justify-start items-center w-full sm:overflow-x-auto sm:bg-white/5 rounded-lg p-2'>
-        <table className='w-full'>
-          <thead className=''>
-            <tr className='hidden sm:flex flex-col p-2 bg-white/5 rounded-xl sm:flex-row sm:bg-transparent sm:border-b sm:border-white/50 sm:rounded-none'>
-              <td className=' flex-1 overflow-hidden  px-2 py-1 sm:whitespace-nowrap'>Nome</td>
-              <td className=' flex-1 overflow-hidden  px-2 py-1 sm:whitespace-nowrap'>Autor</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>Edição</td>
-              <td className=' flex-1 overflow-hidden  px-2 py-1 sm:whitespace-nowrap'>Codigo</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>Data</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>Local</td>
-              <td className=' flex justify-center items-center sm:w-16 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>
-                
-              </td>
+      <div className='flex justify-center rounded-xl items-center w-full p-2 mobile:p-0 bg-white/20 mobile:bg-transparent'>
+
+        <table className=' w-full'>
+
+          <thead className='mobile:hidden'>
+            <tr className='border-b'>
+              <th className='text-start px-2 py-1'>Nome</th>
+              <th className='text-start px-2 py-1'>Autor</th>
+              <th className='text-start px-2 py-1'>Edição</th>
+              <th className='text-start px-2 py-1'>Codigo</th>
+              <th className='text-start px-2 py-1'>Data</th>
+              <th className='text-start px-2 py-1'>Local</th>
+              <th className='text-start px-2 py-1'></th>
             </tr>
           </thead>
 
-          <tbody className='flex flex-col gap-2 sm:gap-0'>
+          <tbody className='mobile:flex mobile:flex-col mobile:gap-4'>
 
-            <tr className='flex sm:justify-center sm:items-center flex-col p-2 bg-white/5 rounded-xl sm:flex-row sm:bg-transparent sm:border-b sm:border-white/50 sm:rounded-none'>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>Harry Potter e a Pedra Filosofal</td>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>Harry Potter</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>2</td>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>7894562</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>12/09/2024</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>Curitiba</td>
-              <td className=' sm:w-16 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>
-                <button onClick={()=> setModalIsOpen(true)} type='button' className='flex justify-center items-center p-2 sm:w-12 w-full bg-white/10 rounded-lg gap-2'>
-                  <span className=''>&#x270E;</span>
-                  <span className='sm:hidden text-white cursor-pointer'>Editar</span>
-                </button>
-              </td>
-            </tr>
-            <tr className='flex sm:justify-center sm:items-center flex-col p-2 bg-white/5 rounded-xl sm:flex-row sm:bg-transparent sm:border-b sm:border-white/50 sm:rounded-none'>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>Harry Potter e a Pedra Filosofal Pedra Filosofal Pedra Filosofal</td>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>Harry Potter Pedra Filosofal Pedra Filosofal</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>2342432423</td>
-              <td className=' flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>7894562432423423423423</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>12/09/2024</td>
-              <td className=' hidden sm:flex flex-1 overflow-hidden px-2 py-1 sm:whitespace-nowrap text-ellipsis'>CuritibaCuritibaCuritibaCuritiba</td>
-              <td className=' sm:w-16 overflow-hidden px-2 py-1 sm:whitespace-nowrap'>
-                <button type='button' className='flex justify-center items-center p-2 sm:w-12 w-full bg-white/10 rounded-lg gap-2'>
-                  <span className=''>&#x270E;</span>
-                  <span className='sm:hidden text-white cursor-pointer'>Editar</span>
-                </button>
-              </td>
-            </tr>
+            {
+              data.map((item,index)=>{
+                return(
+                <tr key={index} className='mobile:flex mobile:flex-col mobile:bg-white/10 mobile:rounded-xl border-b mobile:border-none p-2'>
+                  <td className='px-2 py-1 mobile:border-none'>{item.nome}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{item.autor}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{item.edicao}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{item.codigoDeBarras}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{item.dataLancamento}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{item.local}</td>
+                  <td className='px-2 py-1 mobile:border-none'>
+                    <button 
+                      onClick={()=>{ setIdLivro(item.id); setModalIsOpen(true)}} 
+                      type='button' 
+                      className='bg-slate-500 w-full p-2 rounded-lg flex justify-center items-center gap-2'
+                      >
+
+                      <span className=''>&#x270E;</span>
+                      <span className='sm:hidden text-white cursor-pointer'>Editar</span>
+                    </button>
+                  </td>
+                </tr>
+                )
+              })
+            }
+
+            
 
           </tbody>
 

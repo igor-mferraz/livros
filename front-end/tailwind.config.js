@@ -8,9 +8,17 @@ export default {
     extend: {
       colors: {
         background: "#12100D",
+        BorderColor: "#27272A",
+        btnDefault: "#fff"
+      },
+      backgroundColor: {
+        bgBtnDefault: '#18181B'
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
+      },
+      screens: {
+          'mobile': {'max': '640px'},
       },
     },
   },
