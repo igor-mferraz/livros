@@ -52,7 +52,7 @@ function Home() {
   return (
     <>
       { loading &&
-        <div className='fixed flex bg-black/50 w-full h-screen justify-center items-center'>
+        <div className='fixed flex bg-black/50 w-full h-screen justify-center items-center z-50'>
           <div className="w-16 h-16 border-4 border-t-4 border-blue-500 border-solid rounded-full border-transparent border-t-blue-500 animate-spin"></div>
         </div>
       }
