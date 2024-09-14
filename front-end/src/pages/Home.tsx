@@ -1,19 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Table from '../components/Table'
 import { Modal } from '../components/modal';
 import { Button } from '../components/button';
 import { FormLivro } from '../components/form-livro';
 import { Livro } from '../types/livro';
+import { getAllLivros } from '../api/livro';
 
 
 function Home() {
-  const [count, setCount] = useState(0);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-
   const [idLivro,setIdLivro] = useState<number>()
-
   const [data, setData] = useState<Livro[]>([{
     id: 1,
     nome: 'Começe Errado mas Começe',
@@ -23,6 +20,20 @@ function Home() {
     dataLancamento: '2024-09-13',
     local:'Curitiba'
   }])
+
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await getAllLivros();
+        console.log(response)
+        setData(response.data);
+      } catch (err) {
+        console.log(err)
+      }
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <div className='flex flex-wrap justify-center items-center gap-4 w-full pt-4 max-w-screen-xl'>
