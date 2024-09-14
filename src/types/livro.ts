@@ -2,7 +2,7 @@ export type Livro = {
     id?: number
     nomeLivro: string,
     autor: string,
-    numeroEdicao: number,
+    numeroEdicao?: number,
     codigoBarras: string,
     dataLancamento: string,
     localLancamento:string

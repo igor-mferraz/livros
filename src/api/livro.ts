@@ -1,8 +1,13 @@
 import api from '../api/api';
 import { Livro } from '../types/livro';
 
-export const getAllLivros = () => {
-  return api.get('/livros');
+export const getAllLivros = (page:number, limit:number) => {
+  return api.get(`/livros`, {
+    params: {
+      page: page,
+      limit: limit
+    }
+  });
 };
 
 export const getLivrosById = (id:number) => {

@@ -1,4 +1,5 @@
 import { Livro } from '../types/livro';
+import { tranformDate, tranformDateView } from '../util/tranformDate';
 
 
 type props = {
@@ -21,12 +22,12 @@ function Table({setModalIsOpen,setIdLivro,setActionType, data}:props) {
 
           <thead className='mobile:hidden'>
             <tr className='border-b'>
-              <th className='text-start px-2 py-1'>Nome</th>
+              <th className='text-start px-2 py-1'>Livro</th>
               <th className='text-start px-2 py-1'>Autor</th>
               <th className='text-start px-2 py-1'>Edição</th>
-              <th className='text-start px-2 py-1'>Codigo</th>
-              <th className='text-start px-2 py-1'>Data</th>
-              <th className='text-start px-2 py-1'>Local</th>
+              <th className='text-start px-2 py-1'>Codigo de Barras</th>
+              <th className='text-start px-2 py-1'>Data Lançamento</th>
+              <th className='text-start px-2 py-1'>Local de Lançamento</th>
               <th className='text-start px-2 py-1'></th>
             </tr>
           </thead>
@@ -41,7 +42,7 @@ function Table({setModalIsOpen,setIdLivro,setActionType, data}:props) {
                   <td className='px-2 py-1 mobile:border-none '>{item.autor}</td>
                   <td className='px-2 py-1 mobile:border-none '>{item.numeroEdicao}</td>
                   <td className='px-2 py-1 mobile:border-none '>{item.codigoBarras}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{item.dataLancamento}</td>
+                  <td className='px-2 py-1 mobile:border-none '>{tranformDateView(item.dataLancamento)}</td>
                   <td className='px-2 py-1 mobile:border-none '>{item.localLancamento}</td>
                   <td className='px-2 py-1 mobile:border-none'>
                     <button 

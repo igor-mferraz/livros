@@ -19,7 +19,7 @@ export default {
       },
       screens: {
           'mobile': {'max': '640px'},
-      },
+      }
     },
   },
   plugins: [],
