@@ -5,39 +5,92 @@ import { Button } from "./button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchemaLivro, FormValuesLivro } from "../schemas/livro";
 import { useEffect } from "react";
+import { createLivro, deleteLivro, getLivrosById, updateLivro } from "../api/livro";
+
 
 
 
 type props = {
-    id?:number
+    id?: number | null;
+    onClose: () => void;
+    actionType?: string;
+    refresh: () => void;
+    toast: any
 }
 
-export const FormLivro = ({id}:props) => {
+export const FormLivro = ({ id, onClose, actionType, refresh,toast}: props) => {
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
         reset
-      } = useForm<FormValuesLivro>({
+    } = useForm<FormValuesLivro>({
         resolver: zodResolver(formSchemaLivro)
     })
-    
-    const onSubmit: SubmitHandler<FormValuesLivro > = (data) => {
+
+    const onSubmit: SubmitHandler<FormValuesLivro> = async (data) => {
         console.log(data)
+        try {
+            if (actionType === 'create') {
+                await createLivro(data);
+                toast.success("Livro Adicionado!",{
+                    theme: 'dark'
+                   })
+            } else if (actionType === 'update' && id) {
+               await updateLivro(id, data);
+               toast.success("Livro Atualizado!",{
+                theme: 'dark'
+               })
+            }
+            onClose();
+            refresh();
+          } catch (error) {
+            console.log(error)
+            toast.error("Erro!",{
+                theme: 'dark'
+               })
+          }
     }
 
-    useEffect(()=>{
-        reset({
-            nome: 'string',
-            autor: 'string',
-            edicao: 'string',
-            codigoDeBarras: 'string',
-            dataLancamento: 'string',
-            local:'string'
-        })
-    },[])
+    const handleDelete = async () =>{
+        try {
+            await deleteLivro(id as number);
+            onClose();
+            refresh();
+            toast.success("Livro Deletado!",{
+                theme: 'dark'
+               })
+        } catch (error) {
+            toast.error("Erro!",{
+                theme: 'dark'
+               })
+            console.error('Erro ao submeter o formulário:', error);
+        }
+    }
+
+    const fetch = async () => {
+        try {
+            const { data } = await getLivrosById(id as number);
+            console.log(data)
+            reset({
+                nomeLivro: data.nomeLivro,
+                autor: data.autor,
+                numeroEdicao: data.numeroEdicao,
+                codigoBarras: data.codigoBarras,
+                dataLancamento: data.dataLancamento,
+                localLancamento: data.localLancamento
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        if (id) {
+            fetch();
+        }
+    }, [])
 
 
     return (
@@ -48,17 +101,17 @@ export const FormLivro = ({id}:props) => {
                         label="Nome"
                         type="text"
                         register={register}
-                        name="nome"
-                        error={errors.nome?.message}
+                        name="nomeLivro"
+                        error={errors.nomeLivro?.message}
                     />
                 </div>
                 <div className="w-2/6">
                     <Input
                         label="Edição"
-                        type="text"
+                        type="number"
                         register={register}
-                        name="edicao"
-                        error={errors.edicao?.message}
+                        name="numeroEdicao"
+                        error={errors.numeroEdicao?.message}
                     />
                 </div>
             </div>
@@ -78,8 +131,8 @@ export const FormLivro = ({id}:props) => {
                         label="Codigo de barras"
                         type="text"
                         register={register}
-                        name="codigoDeBarras"
-                        error={errors.codigoDeBarras?.message}
+                        name="codigoBarras"
+                        error={errors.codigoBarras?.message}
                     />
                 </div>
             </div>
@@ -98,45 +151,37 @@ export const FormLivro = ({id}:props) => {
                 <div className="flex-1">
                     <SelectList
                         register={register}
-                        name="local"
+                        name="localLancamento"
                         label="Local"
                         options={['Curitiba']}
-                        error={errors.local?.message}
+                        error={errors.localLancamento?.message}
                     />
                 </div>
             </div>
 
 
             <div className="flex gap-2">
-                {
-                    id &&
+                {id ? (
                     <>
                         <Button
-                            onClick={() => alert('oi')}
+                            onClick={handleDelete}
                             text="Remover"
-                            type="submit"
+                            type="button"
                             color="bg-red-700"
-        
                         />
                         <Button
-                            onClick={() => alert('oi')}
                             text="Salvar"
                             type="submit"
                             color="bg-green-700"
-        
                         />
                     </>
-                }
-                {
-                    !id &&
+                ) : (
                     <Button
                         text="Adicionar"
                         type="submit"
                         color="bg-green-700"
-    
                     />
-
-                }
+                )}
             </div>
         </form>
 

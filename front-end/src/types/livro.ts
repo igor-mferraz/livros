@@ -1,9 +1,9 @@
 export type Livro = {
-    id: number
-    nome: string,
+    id?: number
+    nomeLivro: string,
     autor: string,
-    edicao: string,
-    codigoDeBarras: string,
+    numeroEdicao: number,
+    codigoBarras: string,
     dataLancamento: string,
-    local:string
+    localLancamento:string
 }

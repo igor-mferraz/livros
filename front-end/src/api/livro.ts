@@ -1,25 +1,25 @@
 import api from '../api/api';
+import { Livro } from '../types/livro';
 
 export const getAllLivros = () => {
   return api.get('/livros');
 };
 
-// // Função para obter um usuário por ID
-// export const getUserById = (id) => {
-//   return api.get(`/users/${id}`);
-// };
+export const getLivrosById = (id:number) => {
+    return api.get(`/livros/${id}`);
+};
 
-// // Função para criar um novo usuário
-// export const createUser = (userData) => {
-//   return api.post('/users', userData);
-// };
 
-// // Função para atualizar um usuário existente
-// export const updateUser = (id, userData) => {
-//   return api.put(`/users/${id}`, userData);
-// };
+export const createLivro = (data:Livro) => {
+  return api.post(`/livros`, data);
+};
 
-// // Função para deletar um usuário
-// export const deleteUser = (id) => {
-//   return api.delete(`/users/${id}`);
-// };
+
+export const updateLivro = (id:number, userData:Livro) => {
+  return api.patch(`/livros/${id}`, userData);
+};
+
+
+export const deleteLivro = (id:number) => {
+  return api.delete(`/livros/${id}`);
+};
