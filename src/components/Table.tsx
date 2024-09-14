@@ -1,5 +1,5 @@
 import { Livro } from '../types/livro';
-import { tranformDate, tranformDateView } from '../util/tranformDate';
+import { tranformDateView } from '../util/tranformDate';
 
 
 type props = {
