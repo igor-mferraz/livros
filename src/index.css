@@ -11,6 +11,23 @@
     font-size: 16px;
 }
 
+::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #222222;
+    border-radius: 8px;
+
+}
+
 .light{
     --background: '#fff';
     --text: '#000';

@@ -16,15 +16,15 @@ function Table({setModalIsOpen,setIdLivro,setActionType, data}:props) {
   return (
     <div className='flex justify-center items-center w-full p-4 mobile:p-1'>
 
-      <div className='flex justify-center rounded-xl items-center w-full p-2 mobile:p-0 bg-white/20 mobile:bg-transparent'>
+      <div className='flex justify-start overflow-auto rounded-xl items-center w-full p-2 mobile:p-0 bg-white/20 mobile:bg-transparent '>
 
-        <table className=' w-full'>
+        <table className='w-full'>
 
           <thead className='mobile:hidden'>
             <tr className='border-b'>
               <th className='text-start px-2 py-1'>Livro</th>
-              <th className='text-start px-2 py-1'>Autor</th>
               <th className='text-start px-2 py-1'>Edição</th>
+              <th className='text-start px-2 py-1'>Autor</th>
               <th className='text-start px-2 py-1'>Codigo de Barras</th>
               <th className='text-start px-2 py-1'>Data Lançamento</th>
               <th className='text-start px-2 py-1'>Local de Lançamento</th>
@@ -38,12 +38,29 @@ function Table({setModalIsOpen,setIdLivro,setActionType, data}:props) {
               data.map((item,index)=>{
                 return(
                 <tr key={index} className='mobile:flex mobile:flex-col mobile:bg-white/10 mobile:rounded-xl border-b mobile:border-none p-2'>
-                  <td className='px-2 py-1 mobile:border-none'>{item.nomeLivro}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{item.autor}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{item.numeroEdicao}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{item.codigoBarras}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{tranformDateView(item.dataLancamento)}</td>
-                  <td className='px-2 py-1 mobile:border-none '>{item.localLancamento}</td>
+                  <td className='px-2 py-1 mobile:border-none mobile:gap-2 mobile:flex mobile:items-center'>
+                    <span>{item.nomeLivro}</span>
+                    <span className='text-xs sm:hidden'>Edição: {item.numeroEdicao}</span>
+                  </td>
+                  <td className='px-2 py-1 mobile:hidden'>
+                    <span>{item.numeroEdicao}</span>
+                  </td>
+                  <td className='px-2 py-1 mobile:border-none mobile:gap-2 mobile:flex mobile:items-center'>
+                    <span className='text-xs sm:hidden'>Autor:</span>
+                    <span>{item.autor}</span>
+                  </td>
+                  <td className='px-2 py-1 mobile:border-none mobile:gap-2 mobile:flex mobile:items-center'>
+                    <span className='text-xs sm:hidden'>Codigo:</span>
+                    <span>{item.codigoBarras}</span>
+                  </td>
+                  <td className='px-2 py-1 mobile:border-none mobile:gap-2 mobile:flex mobile:items-center'>
+                    <span className='text-xs sm:hidden'>Data Lançamento:</span>
+                    <span>{tranformDateView(item.dataLancamento)}</span>
+                  </td>
+                  <td className='px-2 py-1 mobile:border-none mobile:gap-2 mobile:flex mobile:items-center'>
+                    <span className='text-xs sm:hidden'>Local Lançamento:</span>
+                    <span>{item.localLancamento}</span>
+                  </td>
                   <td className='px-2 py-1 mobile:border-none'>
                     <button 
                       onClick={()=>{ setIdLivro(item.id as number); setModalIsOpen(true); setActionType('update')}} 
