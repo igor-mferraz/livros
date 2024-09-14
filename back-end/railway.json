@@ -1,0 +1,10 @@
+{
+    "build": {
+      "src": "backend",
+      "command": "npm install && npm run build",
+      "output": "backend/dist"
+    },
+    "start": {
+      "command": "node backend/dist/main.js"
+    }
+  }
