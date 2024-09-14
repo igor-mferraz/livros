@@ -4,7 +4,7 @@ import { SelectList } from "./select-list";
 import { Button } from "./button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchemaLivro, FormValuesLivro } from "../schemas/livro";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createLivro, deleteLivro, getLivrosById, updateLivro } from "../api/livro";
 
 
@@ -19,8 +19,6 @@ type props = {
 }
 
 export const FormLivro = ({ id, onClose, actionType, refresh, toast}: props) => {
-
-    const [loading, ] = useState(false);
 
     const {
         register,
@@ -97,8 +95,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast}: props) => 
 
     return (
         <>
-        {
-            loading ?
             <form onSubmit={handleSubmit(onSubmit)} className="w-full p-2 flex flex-col gap-2">
                 <div className="flex gap-2">
                     <div className="flex-1">
@@ -189,11 +185,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast}: props) => 
                     )}
                 </div>
             </form>
-            : 
-            <div>
-                Carregando...
-            </div>
-        }
         
         </>
 
