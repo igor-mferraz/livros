@@ -8,19 +8,15 @@ import { createLivro, deleteLivro, getLivrosById, updateLivro } from "../api/liv
 import { tranformDate } from "../util/tranformDate";
 import { Loading } from "./loading";
 
-
-
-
 type props = {
     id?: number | null;
     onClose: () => void;
-    actionType?: string;
     refresh: () => void;
     toast: any;
     setLoading: any
 }
 
-export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}: props) => {
+export const FormLivro = ({ id, onClose, refresh, toast, setLoading}: props) => {
     
     const [getLoading, setGetLoading] = useState(false)
 
@@ -36,28 +32,31 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
     const onSubmit: SubmitHandler<FormValuesLivro> = async (data) => {
         try {
             setLoading(true)
-            if (actionType === 'create') {
+            if (!id) {
                 await createLivro(data);
                 toast.success("Livro Adicionado!",{
                     theme: 'dark'
                    })
-
-            } else if (actionType === 'update' && id) {
-               await updateLivro(id, data);
+                
+            }
+            if (id) {
+               const result = await updateLivro(id, data);
+               console.log(result)
                toast.success("Livro Atualizado!",{
                 theme: 'dark'
                })
+               
             }
 
             onClose();
             refresh();
             setLoading(false)
         } catch (error:any) {
-            console.log(error.response.data.message[0])
+
             toast.error(error.response.data.message[0],{
                 theme: 'dark'
                })
-               setLoading(false)
+            setLoading(false)
           }
     }
 
@@ -76,7 +75,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
             toast.error("Erro!",{
                 theme: 'dark'
                })
-            console.error('Erro ao submeter o formulário:', error);
         }
     }
 
@@ -84,7 +82,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
         try {
             setGetLoading(true)
             const { data } = await getLivrosById(id as number);
-            console.log(data)
             reset({
                 nomeLivro: data.nomeLivro,
                 autor: data.autor,
@@ -95,7 +92,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
             })
             setGetLoading(false)
         } catch (err) {
-            console.log(err)
             setGetLoading(false)
         }
     }
@@ -110,7 +106,6 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
 
 
     return (
-        <>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full p-2 flex flex-col gap-2">
                     <div className="flex gap-2">
                         <div className="flex-1">
@@ -201,8 +196,7 @@ export const FormLivro = ({ id, onClose, actionType, refresh, toast, setLoading}
                         )}
                     </div>
                 </form>
-        
-        </>
+
 
     )
 }

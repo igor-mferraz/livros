@@ -23,9 +23,6 @@ function Home() {
   const [limit,] = useState(10);
   const [totalLivros, setTotalLivros] = useState(0)
 
-
-  const [actionType, setActionType] = useState<string>('')
-
   const totalPages = Math.ceil(totalLivros / limit);
 
   const fetch = async () => {
@@ -63,14 +60,15 @@ function Home() {
         </div>
       }
 
-      <div className='flex flex-wrap justify-center items-center gap-4 w-full p-8'>
+      <div className='flex flex-wrap justify-center items-center gap-4 w-full sm:p-8 p-2'>
         <div className='flex justify-between items-center w-full px-4'>
           <h1 className='font-bold text-xl'>Livros</h1>
           <div>
             <Button
               text='Adicionar Livro'
-              color='bg-bgBtnDefault'
-              onClick={() => { setModalIsOpen(true); setIdLivro(null); setActionType('create') }}
+              color='transparent'
+              border={true}
+              onClick={() => { setModalIsOpen(true); setIdLivro(null);}}
               type='button'
             />
           </div>
@@ -81,12 +79,28 @@ function Home() {
             data={data}
             setModalIsOpen={setModalIsOpen}
             setIdLivro={setIdLivro}
-            setActionType={setActionType}
           />
           <div className='flex justify-center gap-4 items-center w-full'>
-            <button className='bg-slate-500 h-8 w-8 rounded-xl' onClick={() => handlePage(page - 1)}>-</button>
+            <div className='w-10'>
+              <Button
+                color='transparent'
+                text='-'
+                border={true}
+                type='button'
+                onClick={() => handlePage(page - 1)}
+                />
+            </div>
             <span>{page}</span>
-            <button className='bg-slate-500 h-8 w-8 rounded-xl' onClick={() => handlePage(page + 1)}>+</button>
+            <div className='w-10'>
+              <Button
+                color='transparent'
+                text='+'
+                border={true}
+                type='button'
+                onClick={() => handlePage(page + 1)}
+                />
+            </div>
+            
           </div>
         </>
       ) : (
@@ -103,7 +117,6 @@ function Home() {
           <FormLivro
             setLoading={setLoading}
             toast={toast}
-            actionType={actionType}
             onClose={() => setModalIsOpen(false)}
             id={idLivro}
             refresh={fetch}
