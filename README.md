@@ -1,6 +1,6 @@
 # Front-End CRUD
 Este é um projeto de CRUD para gerenciamento de livros. Ele permite criar, ler, atualizar e excluir informações sobre livros. É uma aplicação básica utilizando o minimo bibliotecas.
-<a target="_blank" href="Acesse: https://livros-react.vercel.app">Acesse</a>
+https://livros-react.vercel.app"
 
 # React - TypeScript - Vite
 
