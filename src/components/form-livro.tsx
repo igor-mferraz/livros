@@ -47,15 +47,16 @@ export const FormLivro = ({ id, onClose, refresh, toast, setLoading}: props) => 
                })
                
             }
-
             onClose();
             refresh();
-            setLoading(false)
+            
         } catch (error:any) {
-
+            alert('Ocorreu um erro!')
             toast.error(error.response.data.message[0],{
                 theme: 'dark'
                })
+          }
+          finally{
             setLoading(false)
           }
     }
@@ -71,10 +72,13 @@ export const FormLivro = ({ id, onClose, refresh, toast, setLoading}: props) => 
                })
                setLoading(false)
         } catch (error) {
-            setLoading(false)
+            alert('Ocorreu um erro!')
             toast.error("Erro!",{
                 theme: 'dark'
                })
+        }
+        finally{
+            setLoading(false)
         }
     }
 
